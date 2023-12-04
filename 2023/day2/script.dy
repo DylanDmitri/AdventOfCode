@@ -1,0 +1,69 @@
+
+// as written vs assumed
+
+//  game number is unique
+//  game number is line number
+
+//  keep each draw together
+//  seperate out the counts
+
+// ----------------------------- //
+// here's the assumption version //
+// ----------------------------- //
+
+Type "Token" = Struct.new{
+    count: Int,
+    color: 'red' | 'blue' | 'green',
+}
+
+"tokenize" (Row) => List.Tokens
+    row
+        .split(":")
+        .at(1)
+        .replace(';', 'c')
+        .split(',')
+        .take(
+            Str "count", Str "color" = token.split()
+            Token.new(count.as(Int), color)
+        )
+    
+"maxFor" (List.Token, Str "targetColor") => Int
+    tokens
+        .where(token.color == targetColor)
+        .max(token.count)
+
+def maxFor(tokens: List[str], targetColor: str):
+    return max(
+        token.count
+        for token in tokens
+        if token.color == targetColor
+    )
+        
+open("data.txt").lines()
+    .sum(
+        List.Token = line.tokenize()
+        Bool "valid" = all[
+            tokens.maxFor("red") <= 12,
+            tokens.maxFor("green") <= 13,
+            tokens.maxFor("blue") <= 14,
+        ]
+        
+        valid ? {
+            True |> line.index,
+            Else |> 0,
+        }
+    )
+
+
+// ----------------------------- //
+// here's the as written version //
+// ----------------------------- //
+
+Type "Row" = Str
+
+"get" (Row, "gameID") => Int
+    row.split(":").at(0).removeprefix("Game ").as(Int)
+
+Type "Draw" = Struct.new{
+
+}

@@ -1,0 +1,35 @@
+
+// [part 1] //
+
+List.Char "digits" = "123456789"
+
+open("data.txt").lines().sum(
+    List.Char "nums" = line.where(element.in(digits))
+    concat[nums[0], nums[-1]].as(Int)
+)
+
+
+// [part 2] //
+
+List.Char "digits" = "123456789"
+List.Str "names" = "one two three four five six seven eight nine".split()
+
+Map{Str, Str} "lookup" = Map.new{
+    keys: concat[names, digits],
+    vals: concat[digits, digits],
+}
+
+"score" (Str "row") => Int
+    List.Str "digits" = row
+        .take(row.slice{from: index})
+        .take(lookup
+            .items()
+            .where(slice.startswith(item.key))
+            .take(item.value))
+        .concat()
+
+    concat[digits.first, digits.last].as(Int)
+
+open("data.txt").lines().sum(
+    line.strip().score()
+)

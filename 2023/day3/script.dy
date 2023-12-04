@@ -1,0 +1,49 @@
+
+// as written vs assumed
+
+//  game number is unique
+//  game number is line number
+
+//  keep each draw together
+//  seperate out the counts
+
+// ----------------------------- //
+// here's the assumption version //
+// ----------------------------- //
+
+Type "Row" = Str
+
+Type "Draw" = Struct.new{
+    "red" -> Int,
+    "green" -> Int,
+    "blue" -> Int,
+}
+
+"mostSeen" (Row) => Draw
+
+    Draw "result" = Draw.new{ red: 0, green: 0, blue: 0 }
+
+    row.split(":").at(1)
+        .replace(";", ",")
+        .split(",")
+        .loop(element
+            .split()
+            .parts
+
+        )
+
+    data.
+
+
+// ----------------------------- //
+// here's the as written version //
+// ----------------------------- //
+
+Type "Row" = Str
+
+"get" (Row, "gameID") => Int
+    row.split(":").at(0).removeprefix("Game ").as(Int)
+
+Type "Draw" = Struct.new{
+
+}
