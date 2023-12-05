@@ -22,8 +22,9 @@ def create():
 
 if __name__ == '__main__':
     FNAME = sys.argv[1]
-    if FNAME not in os.listdir():
-        create()
+    # if not os.path
+    # if FNAME not in os.listdir():
+    #     create()
 
     while True:
         subprocess.run(['python3', FNAME])
