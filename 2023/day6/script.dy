@@ -1,0 +1,33 @@
+
+"parse" (Str) => List.Int
+    string.split().each-as(Int)
+        
+List.Str "rows" = open("data.txt").lines()
+
+List.Int "matches" = rows.take(
+    row
+        .split(':')
+        .at(1)
+        .split("|")
+        .take(each.parse().as(Set.Int))
+        .intersection()
+        .length()
+)
+
+matches.sum(
+    match ? {
+        0    |> 0
+        else |> 2.exp(match.minus(1))
+    }
+).print()
+
+
+copies = rows.take(1)
+
+matches.loop(
+    range{from: match_index, to: match_index + match}.loop(
+        copies.at(i).increment(copies.at(match_index))
+    )
+)
+
+copies.sum().print()
